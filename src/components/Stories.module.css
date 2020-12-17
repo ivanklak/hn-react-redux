@@ -10,6 +10,10 @@
   font-family: "Baskerville";
   padding: 14px 24px;
 }
+.storiesText {
+  border-bottom: 1px solid #8f8f8f;
+  padding: 10px 10px;
+}
 .storiesItem {
   color: #000000;
   display: flex;
