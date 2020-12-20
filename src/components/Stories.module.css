@@ -23,6 +23,9 @@
   align-items: center;
   text-decoration: none;
 }
+.storiesItem:hover {
+  opacity: .3;
+}
 .storiesTitle {
   color: #000000;
   margin-top: 0;

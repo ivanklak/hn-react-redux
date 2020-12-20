@@ -9,18 +9,24 @@ const News = ({ news, storyId }) => {
     <div className={s.news}>
       <div className={s.newsBody}>
         <div className={s.newsText}>
-          <NavLink to="/storiespage">Stories</NavLink>
           <div className={s.title}>{news.title}</div>
-          <div>
+          <div className={s.description}>
             <span>By: {news.by}</span> {" | "}
             <TimeAgo datetime={new Date(news.time * 1000)} />
           </div>
         </div>
-        <div>
-          <span>{<a href={news.url}>Original</a>}</span>
-        </div>
-        <div>
+        <div className={s.down}>
+          <NavLink to="/storiespage" className={s.newsLink}>
+            Back to stories
+          </NavLink>
           <span>Comments:</span>
+          <span>
+            {
+              <a href={news.url} className={s.newsUrl}>
+                Original
+              </a>
+            }
+          </span>
         </div>
       </div>
     </div>
