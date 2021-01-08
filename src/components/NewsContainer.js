@@ -1,25 +1,29 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import News from "./News";
-import { requestNews } from "../redux/news-reducer";
+import { requestNews, requestComments} from "../redux/news-reducer";
 import { withRouter } from "react-router-dom";
 import { compose } from "../../../Library/Caches/typescript/3.6/node_modules/redux";
+import { getNews } from "../redux/news-selector";
 
-const NewsContainer = ({ requestNews, news, ...props }) => {
+const NewsContainer = ({ requestNews, requestComments, news, ...props }) => {
+  //debugger;
+
   useEffect(() => {
     requestNews(props.match.params.id);
-  }, [props.match.params.id, requestNews]);
-  return (
-    <div>
-      <News news={news} storyId={props.match.params.id} />
-    </div>
-  );
+  }, []);
+  useEffect(() => {
+    news.length !== 0 && requestComments(props.match.params.id, news);
+  }, [news.length, props.match.params.id, requestComments]);
+
+  return <News news={news} storyId={props.match.params.id} />;
 };
+
 const mapStateToProps = state => ({
-  news: state.newsPage.news
+  news: getNews(state)
 });
 
 export default compose(
-  connect(mapStateToProps, { requestNews }),
+  connect(mapStateToProps, { requestNews, requestComments }),
   withRouter
 )(NewsContainer);

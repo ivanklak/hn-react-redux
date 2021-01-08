@@ -2,57 +2,41 @@ import React from "react";
 import s from "./News.module.css";
 import { NavLink } from "react-router-dom";
 import TimeAgo from "timeago-react";
+import Comments from "./Comments";
 
 const News = ({ news, storyId }) => {
   //debugger;
+  if (news.length < 1) return null;
   return (
     <div className={s.news}>
       <div className={s.newsBody}>
         <div className={s.newsText}>
-          <div className={s.title}>{news.title}</div>
+          <div className={s.title}>{news[0].title}</div>
           <div className={s.description}>
-            <span>By: {news.by}</span> {" | "}
-            <TimeAgo datetime={new Date(news.time * 1000)} />
+            <span>By: {news[0].by}</span> {" | "}
+            <TimeAgo datetime={new Date(news[0].time * 1000)} /> {" | "}
+            <span>Likes: {news[0].score}</span>
           </div>
         </div>
         <div className={s.down}>
           <NavLink to="/storiespage" className={s.newsLink}>
             Back to stories
           </NavLink>
-          <span>Comments:</span>
+          <span>Comments: {news.length - 1}</span>
           <span>
             {
-              <a href={news.url} className={s.newsUrl}>
+              <a href={news[0].url} className={s.newsUrl}>
                 Original
               </a>
             }
           </span>
         </div>
       </div>
+      <div>
+        <Comments news={news} />
+      </div>
     </div>
   );
 };
 
 export default News;
-
-//   {stories.map(item =>
-//     item ? (
-//       <div className={s.storiesText}>
-//         <NavLink
-//           to={`/news/${item.id}`}
-//           key={item.id}
-//           className={s.storiesItem}
-//         >
-//           <div className={s.text}>
-//             <div className={s.storiesTitle}>{item.title}</div>
-//             <div className={s.description}>
-//               {item.score} likes by <span>{item.by}</span> {" "}
-//               <span>
-//                 <TimeAgo datetime={new Date(item.time * 1000).toISOString()} />
-//               </span>
-//             </div>
-//           </div>
-//         </NavLink>
-//       </div>
-//     ) : null
-//   )}
