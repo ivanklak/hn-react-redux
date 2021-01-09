@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import TimeAgo from "timeago-react";
 import Comments from "./Comments";
 
-const News = ({ news, storyId }) => {
+const News = ({ news, storyId, addChildrens }) => {
   //debugger;
   if (news.length < 1) return null;
   return (
@@ -33,7 +33,7 @@ const News = ({ news, storyId }) => {
         </div>
       </div>
       <div>
-        <Comments news={news} />
+        <Comments news={news} addChildrens={addChildrens} />
       </div>
     </div>
   );

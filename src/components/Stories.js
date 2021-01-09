@@ -17,9 +17,11 @@ const Stories = ({ stories, storyIds }) => {
               <div className={s.text}>
                 <div className={s.storiesTitle}>{item.title}</div>
                 <div className={s.description}>
-                  {item.score} likes by <span>{item.by}</span> {" "}
+                  {item.score} likes by <span>{item.by}</span>{" "}
                   <span>
-                    <TimeAgo datetime={new Date(item.time * 1000).toISOString()} />
+                    <TimeAgo
+                      datetime={new Date(item.time * 1000).toISOString()}
+                    />
                   </span>
                 </div>
               </div>

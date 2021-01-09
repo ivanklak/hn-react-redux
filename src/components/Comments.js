@@ -2,7 +2,7 @@ import React from "react";
 import s from "./Comments.module.css";
 import TimeAgo from "timeago-react";
 
-const Comments = ({ news }) => {
+const Comments = ({ news, addChildrens }) => {
   //debugger;
   if (!news[0].childrens) return null;
   let comments = news[0].childrens;
@@ -20,7 +20,14 @@ const Comments = ({ news }) => {
                   {comment.by} {" | "}
                   <TimeAgo datetime={new Date(comment.time * 1000)} />
                 </span>
-                <div className={s.text}>{comment.text ? comment.text : "Deleted :("}</div>
+                <div
+                  className={s.text}
+                  onClick={() => {
+                    addChildrens(comment.id, news);
+                  }}
+                >
+                  {comment.text ? comment.text : "Deleted :("}
+                </div>
               </div>
             </div>
           ))}

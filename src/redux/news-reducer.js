@@ -2,9 +2,11 @@ import { storiesAPI } from "../api/api";
 
 const SET_NEWS = "SET_NEWS";
 const ADD_COMMENT = "ADD_COMMENT";
+const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 
 const initialState = {
-  news: []
+  news: [],
+  isFetching: true
 };
 
 const newsReducer = (state = initialState, action) => {
@@ -23,6 +25,8 @@ const newsReducer = (state = initialState, action) => {
             : item
         )
       };
+    case TOGGLE_IS_FETCHING:
+      return { ...state, isFetching: action.isFetching };
     default:
       return state;
   }
@@ -30,6 +34,10 @@ const newsReducer = (state = initialState, action) => {
 
 const setNews = item => ({ type: SET_NEWS, item });
 const addComment = (piece, id) => ({ type: ADD_COMMENT, piece, id });
+const setTougleIsFetching = isFetching => ({
+  type: TOGGLE_IS_FETCHING,
+  isFetching
+});
 
 let itemsPiece = [];
 export const reloadNews = id => {
@@ -48,9 +56,11 @@ export const reloadNews = id => {
 export const requestNews = id => {
   return async dispatch => {
     //debugger;
+    dispatch(setTougleIsFetching(true));
     await dispatch(reloadNews(id));
     dispatch(setNews(itemsPiece));
     itemsPiece = [];
+    dispatch(setTougleIsFetching(false));
   };
 };
 
@@ -69,4 +79,12 @@ export const requestComments = (id, news) => {
     }
   };
 };
+
+export const setChildrens = id => {
+  return dispatch => {
+    let cont = [];
+    dispatch(addComment(cont, id));
+  };
+};
+
 export default newsReducer;
